@@ -49,14 +49,16 @@ public class MainActivity extends AppCompatActivity {
         btnGPS = (Button)findViewById(R.id.button);
 
         btnGPS.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                consumirServicio();
 
+            }
+
+            /*
             @Override
             public void onClick(View view){
-                try {
-                    GetText();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+
                LocationManager locationManager= (LocationManager)MainActivity.this.getSystemService(Context.LOCATION_SERVICE);
                 LocationListener locationListener = new LocationListener() {
                     @Override
@@ -84,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
                         Manifest.permission.ACCESS_FINE_LOCATION);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,0, locationListener);
 
-            }
+            }*/
         });
-
+/*
         int permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         if(permissionCheck==PackageManager.PERMISSION_DENIED){
@@ -98,57 +100,22 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         1);
             }
-        }
+        }*/
 
     }
 
-    public  void  GetText()  throws UnsupportedEncodingException
-    {
-        // Get user defined values
-        /*Name = fname.getText().toString();
-        Email   = email.getText().toString();
-        Login   = login.getText().toString();
-        Pass   = pass.getText().toString();*/
+    public void consumirServicio(){
+        // ahora ejecutaremos el hilo creado
+        //String id= editTextid.getText().toString();
+        //String nombre= editTextnombre.getText().toString();
+        //String telefono= editTexttelefono.getText().toString();
+        Double longitud=0.00;
+        Double latitud=0.00;
 
-        // Create data variable for sent values to server
-
-        /*String data = URLEncoder.encode("name", "UTF-8")
-                + "=" + URLEncoder.encode(Name, "UTF-8");
-
-        data += "&" + URLEncoder.encode("email", "UTF-8") + "="
-                + URLEncoder.encode(Email, "UTF-8");
-
-        data += "&" + URLEncoder.encode("user", "UTF-8")
-                + "=" + URLEncoder.encode(Login, "UTF-8");
-
-        data += "&" + URLEncoder.encode("pass", "UTF-8")
-                + "=" + URLEncoder.encode(Pass, "UTF-8");
-*/
-        String text = "";
-
-        // Send data
-        try
-        {
-            // Defined URL  where to send data
-            URL url = new URL("http://192.168.0.14:56285/api/ReporteConsolidado/postIngresarCoordenadas?longitud=20.00&latitud=30.00");
-
-            // Send POST data request
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            conn.getOutputStream();
-
-        }
-        catch(Exception ex)
-        {
-
-        }
-        finally
-        {
-
-        }
-
-        // Show response on activity
-        //content.setText( text  );
+        ServicioTask servicioTask= new ServicioTask(this,"http://192.168.100.8:56285/api/ReporteConsolidado/postIngresarCoordenadas",longitud,latitud);
+        servicioTask.execute();
 
     }
+
+
 }
