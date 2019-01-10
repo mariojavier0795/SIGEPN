@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SIGEPN</string>
+    <string name="ubicacion_gps">Ubicacion GPS</string>
+    <string name="gps">GPS</string>
 </resources>
